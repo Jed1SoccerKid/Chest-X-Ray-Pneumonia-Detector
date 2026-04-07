@@ -79,7 +79,7 @@ function imageToTensor(dataURL) {
       ctx.drawImage(img, 0, 0, IMG_SIZE, IMG_SIZE);
 
       const imageData = ctx.getImageData(0, 0, IMG_SIZE, IMG_SIZE);
-      const { data }  = imageData; // RGBA, length = 224*224*4
+      const { data }  = imageData; 
 
     
       const floatArr = new Float32Array(1 * 1 * IMG_SIZE * IMG_SIZE);
@@ -89,7 +89,7 @@ function imageToTensor(dataURL) {
         const g = data[i * 4 + 1];
         const b = data[i * 4 + 2];
         const gray = (0.299 * r + 0.587 * g + 0.114 * b) / 255.0;
-        floatArr[i] = (gray - 0.5) / 0.5;  // normalize: [-1, 1]
+        floatArr[i] = (gray - 0.5) / 0.5;  
       }
 
       const tensor = new ort.Tensor('float32', floatArr, [1, 1, IMG_SIZE, IMG_SIZE]);
@@ -100,7 +100,7 @@ function imageToTensor(dataURL) {
   });
 }
 
-let _session = null;  // cache session so we only load once
+let _session = null;  
 
 async function runInference(tensor) {
   if (!_session) {
@@ -109,7 +109,7 @@ async function runInference(tensor) {
 
   const feeds     = { input1: tensor };
   const outputMap = await _session.run(feeds);
-  const logits    = Array.from(outputMap.output1.data);  // [logit_normal, logit_pneumonia]
+  const logits    = Array.from(outputMap.output1.data); 
 
   const maxLogit = Math.max(...logits);
   const exps     = logits.map(l => Math.exp(l - maxLogit));
