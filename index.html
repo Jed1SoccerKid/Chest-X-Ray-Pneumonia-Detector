@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chest X-Ray Pneumonia Detector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scan-line"></div>
+
+  <header>
+    <div class="header-tag">🧠 ITS 365 · Deep Learning</div>
+    <h1>🫁 Chest X-Ray<br><span class="accent">Pneumonia Detector</span></h1>
+
+  </header>
+
+  <main>
+
+    <!-- Upload Zone -->
+    <section class="upload-section">
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+            <path d="M24 18v12M18 24l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="drop-label">🩻 Drop an X-ray image here</p>
+        <p class="drop-sub">or</p>
+        <label class="upload-btn" for="file-input">📂 Browse Files</label>
+        <input type="file" id="file-input" accept="image/*" hidden />
+        <p class="drop-hint">JPEG · PNG · WEBP · Any size</p>
+      </div>
+    </section>
+
+    <!-- Preview + Result -->
+    <section class="result-section" id="result-section" style="display:none">
+
+      <div class="image-panel">
+        <div class="image-label">🩻 INPUT X-RAY</div>
+        <div class="image-frame">
+          <img id="preview-img" alt="Uploaded X-ray" />
+          <div class="image-overlay" id="image-overlay"></div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-label">📊 ANALYSIS</div>
+
+        <div class="result-card" id="result-card">
+          <div class="loading-state" id="loading-state">
+            <div class="spinner"></div>
+            <p>Running model inference…</p>
+          </div>
+
+          <div class="diagnosis" id="diagnosis" style="display:none">
+            <div class="diagnosis-icon" id="diagnosis-icon"></div>
+            <div class="diagnosis-label" id="diagnosis-label"></div>
+            <div class="confidence-row">
+              <span class="conf-title">Confidence</span>
+              <span class="conf-value" id="conf-value"></span>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-fill" id="bar-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Probability breakdown -->
+        <div class="prob-breakdown" id="prob-breakdown" style="display:none">
+          <div class="prob-title">📈 CLASS PROBABILITIES</div>
+          <div class="prob-row">
+            <span class="prob-class normal">✅ NORMAL</span>
+            <div class="prob-bar-wrap">
+              <div class="prob-bar normal-bar" id="normal-bar"></div>
+            </div>
+            <span class="prob-pct" id="normal-pct"></span>
+          </div>
+          <div class="prob-row">
+            <span class="prob-class pneumonia">🫁 PNEUMONIA</span>
+            <div class="prob-bar-wrap">
+              <div class="prob-bar pneumonia-bar" id="pneumonia-bar"></div>
+            </div>
+            <span class="prob-pct" id="pneumonia-pct"></span>
+          </div>
+        </div>
+
+        <button class="reset-btn" id="reset-btn">🔄 Analyze Another X-Ray</button>
+
+        <p class="disclaimer">
+          ⚠️ For educational purposes only. Not a medical diagnostic tool.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
