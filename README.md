@@ -4,7 +4,7 @@ Chest X‑Ray Pneumonia Detector
 A lightweight CNN trained on the Kaggle Chest X‑Ray Pneumonia dataset and deployed entirely in the browser using ONNX Runtime Web.
 
 # Dataset
-Uses the Kaggle chest X‑ray dataset with a known class imbalance (more PNEUMONIA than NORMAL). Images are resized to 224×224, converted to grayscale, and normalized.
+Used the Kaggle chest X‑ray dataset with a known class imbalance (more PNEUMONIA than NORMAL). Images are resized to 224×224, converted to grayscale, and normalized.
 https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
 
 # Model
